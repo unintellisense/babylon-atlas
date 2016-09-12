@@ -1,15 +1,8 @@
 /* global BABYLON */
 
-//Optional support for loading json remotely
-if (typeof require === "function" && require) {
-	module.exports = Atlas
+module.exports = Atlas
 
-	var loader = require('load-json-xhr')
-} else {
-	var loader = function() { console.error("JSON loader not active") }
-}
-
-
+var loader = require('load-json-xhr')
 
 
 /*
@@ -97,7 +90,7 @@ Atlas.prototype.makeSpriteMesh = function (frame, material) {
 	mesh.material = material
 	mesh.material.diffuseTexture = this._baseTexture
 	mesh._currentAtlasFrame = null
-	
+
 	// set to correct frame
 	this.setMeshFrame(mesh, frame)
 
@@ -109,7 +102,7 @@ Atlas.prototype.makeSpriteMesh = function (frame, material) {
 // public accessor to set a created mesh's frame
 Atlas.prototype.setMeshFrame = function (mesh, frame) {
 	if (frame === mesh._currentAtlasFrame) return
-	
+
 	// defer if needed
 	if (!this._ready) {
 		var self = this
@@ -225,13 +218,13 @@ function setTextureUVs(self, tex, frameDat) {
 	var y = frameDat.frame.y
 	var w = frameDat.frame.w
 	var h = frameDat.frame.h
-	
+
 	// in Babylon 2.2 and below:
 	// tex.uScale = w/sw
 	// tex.vScale = h/sh
 	// tex.uOffset = ( sw /2 - x)/w - 0.5
 	// tex.vOffset = (-sh/2 + y)/h + 0.5
-	
+
 	// Babylon 2.3 and above:
 	tex.uScale = w / sw
 	tex.vScale = h / sh
